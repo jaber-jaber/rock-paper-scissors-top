@@ -48,12 +48,9 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-let numRounds = 20;
+function playGame(humanSelection, numRounds) {
 
-function playGame(numRounds) {
-
-    for (let i = 0; i <= numRounds; i++) {
-        let humanSelection = getHumanChoice()
+    for (let i = 0; i < numRounds; i++) {
         let computerSelection = getComputerChoice() 
         playRound(humanSelection, computerSelection)
         console.log(`
@@ -62,4 +59,29 @@ function playGame(numRounds) {
     }
 }
 
-playGame(numRounds)
+function announceWinner(humanScore, computerScore) {
+    if (humanScore === 5) {
+        result.innerText = "\n Your Score: 0 \n Computer Score: 0";
+        alert("You won!")
+    } else if (computerScore === 5) {
+        result.innerText = "\n Your Score: 0 \n Computer Score: 0";
+        alert("The computer won :(")
+    }
+}
+
+let numRounds = 1;
+const choices = document.querySelectorAll(".choice");
+
+const result = document.createElement("div");
+const body = document.body;
+
+result.innerText = "\n Your Score: 0 \n Computer Score: 0"
+body.appendChild(result)
+
+choices.forEach((choice) => {
+    choice.addEventListener("click", () => {
+        announceWinner(humanScore, computerScore);
+        playGame(choice.innerText, numRounds);
+        result.innerText = `\n Your Score: ${humanScore} \n Computer Score: ${computerScore}`
+    })
+})
